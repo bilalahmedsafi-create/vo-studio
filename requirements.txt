@@ -1,0 +1,8 @@
+numpy
+soundfile
+fastapi
+uvicorn[standard]
+python-multipart
+faster-whisper
+audio-separator[cpu]
+audioread

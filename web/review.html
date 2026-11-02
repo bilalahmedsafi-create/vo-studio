@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VO Studio – Review</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="studio review">
+  <div class="topbar">
+    <a href="/index.html" class="muted" style="text-decoration:none">← Jobs</a>
+    <div class="title" id="title">Loading…</div>
+    <select id="version" title="Rendered version"></select>
+    <span class="tag" id="summary"></span>
+    <button class="primary" id="renderBtn">Render new version</button>
+  </div>
+
+  <div class="stage">
+    <div class="video-box"><video id="video" controls playsinline preload="metadata"></video></div>
+    <div class="prompter">
+      <div class="info"><span id="lineId">–</span><span id="lineTime"></span><span id="flagState"></span></div>
+      <div class="now" id="nowText" style="font-size:20px">Play the video. The current line shows here.</div>
+      <div class="row" style="margin-top:10px">
+        <input type="text" id="note" placeholder="What should change? e.g. more energy, wrong word, too slow (optional)">
+        <button class="rec" id="flagBtn" title="Flag this line for redo (F)">⚑ Flag for redo</button>
+        <button id="unflagBtn" hidden>Remove flag</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="side">
+    <div class="head">
+      <input type="text" id="search" placeholder="Search lines…">
+      <label class="muted" style="white-space:nowrap;font-size:12px"><input type="checkbox" id="onlyFlagged"> Only flagged</label>
+    </div>
+    <div class="lines" id="lines"></div>
+  </div>
+
+  <div class="controls">
+    <span class="muted">Watch the final, flag lines that need a redo. The VO artist sees them in his studio.</span>
+    <span class="muted" style="margin-left:auto"><kbd>Space</kbd> play/pause <kbd>F</kbd> flag line <kbd>↑</kbd><kbd>↓</kbd> jump line</span>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="review.js"></script>
+</body>
+</html>

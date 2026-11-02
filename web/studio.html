@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VO Studio – Recording</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="studio">
+  <div class="topbar">
+    <div class="title" id="title">Loading…</div>
+    <span class="tag" id="progress">0 / 0 recorded</span>
+    <div class="meter" id="meter" title="Mic level"><i></i></div>
+    <button id="settingsBtn">Mic &amp; sync</button>
+    <button class="primary" id="submitBtn">Submit for render</button>
+  </div>
+
+  <div class="stage">
+    <div class="video-box">
+      <video id="video" playsinline preload="auto"></video>
+      <div class="countdown" id="countdown"></div>
+      <div class="rec-badge" id="recBadge">● REC</div>
+    </div>
+    <div class="prompter">
+      <div class="info"><span id="lineId">–</span><span id="lineTime"></span><span id="lineLen"></span></div>
+      <div class="flag-note" id="flagNote" hidden></div>
+      <div class="now" id="nowText">–</div>
+      <div class="next" id="nextText"></div>
+    </div>
+  </div>
+
+  <div class="side">
+    <div class="head">
+      <input type="text" id="search" placeholder="Search lines…">
+      <label class="muted" style="white-space:nowrap;font-size:12px"><input type="checkbox" id="onlyFlagged"> Only redo</label>
+    </div>
+    <div class="lines" id="lines"></div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-wrap">
+      <canvas id="tl"></canvas>
+      <canvas id="overview" title="Whole video – click to jump"></canvas>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--guide)"></i>Old VO (guide)</span>
+      <span><i style="background:var(--accent)"></i>Your take (drag to nudge)</span>
+      <span><i style="background:var(--bed)"></i>Music + SFX</span>
+      <span class="muted">Overview: green = recorded, grey = to do</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="prevBtn" title="Previous line (↑)">◀ Prev</button>
+    <button id="playBtn" title="Play line with your take (Space)">▶ Play line</button>
+    <button class="rec" id="recBtn" title="Record this line (R)">● Record line</button>
+    <button class="rec" id="runBtn" title="Record from this line on, straight through, until you stop (Shift+R)">● Record run</button>
+    <button id="nextBtn" title="Next line (↓)">Next ▶</button>
+    <div class="sep"></div>
+    <span class="muted">Takes:</span>
+    <div class="takes" id="takes"><span class="muted">none yet</span></div>
+    <div class="sep"></div>
+    <label class="muted"><input type="checkbox" id="guidePlay" checked> Old VO on playback</label>
+    <label class="muted"><input type="checkbox" id="guideRec"> Old VO while recording</label>
+    <span class="muted" style="margin-left:auto"><kbd>Space</kbd> play <kbd>R</kbd> line <kbd>Shift+R</kbd> run <kbd>↑</kbd><kbd>↓</kbd> line <kbd>1-9</kbd> take <kbd>,</kbd><kbd>.</kbd> nudge 10 ms</span>
+  </div>
+</div>
+
+<dialog id="settings">
+  <h3>Mic &amp; sync</h3>
+  <p class="muted" style="margin-top:0">Use headphones, so the video sound does not leak into your mic. Chrome works best.</p>
+  <label for="micSel">Microphone</label>
+  <select id="micSel"></select>
+  <label for="syncRange">Sync offset: <span id="syncVal">0</span> ms <span class="muted">(if your takes land late, move right; early, move left)</span></label>
+  <input type="range" id="syncRange" min="-300" max="300" step="5" value="0">
+  <label for="preroll">Pre-roll before each line: <span id="prerollVal">2</span> s</label>
+  <input type="range" id="preroll" min="1" max="5" step="0.5" value="2">
+  <label><input type="checkbox" id="beeps" checked> Countdown beeps in headphones</label>
+  <p class="muted" id="latencyInfo"></p>
+  <div class="row" style="justify-content:flex-end; margin-top:16px"><button id="settingsClose" class="primary">Done</button></div>
+</dialog>
+
+<div class="toast" id="toast"></div>
+<script src="studio.js"></script>
+</body>
+</html>
