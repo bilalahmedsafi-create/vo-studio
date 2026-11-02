@@ -66,6 +66,14 @@ def check_key(job, key):
         raise HTTPException(403, "wrong studio link")
 
 
+def video_of(job):
+    """The job's original video: its saved path, or source.mp4 inside the job folder (shared jobs)."""
+    p = Path(job["video"])
+    if not p.is_absolute():
+        p = JOBS / job["id"] / p
+    return p if p.is_file() else JOBS / job["id"] / "source.mp4"
+
+
 def public(job):
     return {k: v for k, v in job.items() if k not in ("video",)}
 
@@ -77,7 +85,7 @@ def run_prepare(job_id):
         job = load(job_id)
         try:
             update(job_id, status="processing")
-            result = pipeline.prepare(JOBS / job_id, job["video"], lambda m: update(job_id, message=m))
+            result = pipeline.prepare(JOBS / job_id, video_of(job), lambda m: update(job_id, message=m))
             update(job_id, status="ready", message="Ready for recording", **result)
         except Exception as e:
             traceback.print_exc()
@@ -93,7 +101,7 @@ def run_render(job_id):
         v = max([r["v"] for r in job.get("renders", [])], default=0) + 1
         try:
             update(job_id, render={"status": "rendering", "message": "Starting", "v": v})
-            result = pipeline.render(JOBS / job_id, job, job["video"], JOBS / job_id / "final" / f"v{v}",
+            result = pipeline.render(JOBS / job_id, job, video_of(job), JOBS / job_id / "final" / f"v{v}",
                                      lambda m: update(job_id, render={"status": "rendering", "message": m, "v": v}))
             entry = {"v": v, "at": time.time(), "dir": f"final/v{v}", **result}
             with lock:
