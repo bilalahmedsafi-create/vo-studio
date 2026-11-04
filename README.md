@@ -10,6 +10,31 @@ Replace the voiceover in a finished video when the edit project is lost.
 3. **Render**: on submit, chosen takes are trimmed, placed, loudness-matched to the old VO, mixed
    with the music + SFX bed and muxed onto the original video (video stream copied, not re-encoded).
 
+## Quick start: you were sent a job zip
+
+Someone already prepared the video for you (old VO removed, lines timed). You only record.
+
+1. Install [Python 3.11+](https://www.python.org/downloads/) (tick "Add python.exe to PATH") and ffmpeg
+   (`winget install Gyan.FFmpeg` in a terminal). Use Chrome and headphones.
+2. Download this repo: green **Code** button → **Download ZIP**, unzip it to `C:\vo-studio`
+   (or `git clone https://github.com/bilalahmedsafi-create/vo-studio C:\vo-studio`).
+3. Double-click `setup.bat` and press **L** (Light install, about 100 MB).
+4. Unzip the job zip you were sent into `C:\vo-studio\data\jobs\`, so you get
+   `C:\vo-studio\data\jobs\20261102-180133-real\job.json`.
+5. Double-click `start.bat`. On the dashboard, click **Open studio** on the job.
+6. Open **Mic & sync**, then press **R** to record a line (**Shift+R** runs through several lines).
+   Do as many takes as you like; drag a take to fix its timing. Your progress is saved.
+7. Back on the dashboard, click **Render new version**. Send back `Final video.mp4` and `New VO.wav`
+   from the job folder.
+
+**Have Claude Code?** Open it in any folder and paste:
+
+> Set up VO Studio for me on Windows: install Python 3.11+ and ffmpeg if they are missing, download
+> https://github.com/bilalahmedsafi-create/vo-studio to C:\vo-studio, run its setup with the Light
+> install, unzip the job zip from my Downloads folder into C:\vo-studio\data\jobs\ (the folder that
+> holds job.json goes directly inside jobs), start start.bat and open the studio for that job in Chrome.
+> Then tell me how to record each line.
+
 ## Install and run (Windows)
 
 1. Install [Python 3.11+](https://www.python.org/downloads/) and ffmpeg (`winget install Gyan.FFmpeg`).
