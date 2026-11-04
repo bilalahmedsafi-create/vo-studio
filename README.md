@@ -13,6 +13,9 @@ Replace the voiceover in a finished video when the edit project is lost.
 ## Quick start: you were sent a job zip
 
 Someone already prepared the video for you (old VO removed, lines timed). You only record.
+You do **not** need audio-separator, Whisper or any AI models: those are only for preparing a new
+video (the Full install). If the app asks for them, the job folder is not in `data\jobs` yet, or you
+dropped a video on the dashboard instead of using the job.
 
 1. Install [Python 3.11+](https://www.python.org/downloads/) (tick "Add python.exe to PATH") and ffmpeg
    (`winget install Gyan.FFmpeg` in a terminal). Use Chrome and headphones.
